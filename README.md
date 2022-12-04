@@ -1,4 +1,4 @@
-# Distributed systems projects inspired by MIT 6.824 Distributed Systems course
+## Distributed systems projects inspired by MIT 6.824 course
 The original [course](https://pdos.csail.mit.edu/6.824/index.html) is written in Golang, but in this repo we will start from scratch with C++ 17.
 
 
