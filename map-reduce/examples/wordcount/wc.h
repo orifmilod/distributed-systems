@@ -5,41 +5,56 @@
 #include <MapReduce/Job.h>
 
 namespace Examples {
+using namespace MapReduce;
 
 class Datastore {
 public:
-  void save() { MapReduce::Logger::info("save"); }
-  void load() { MapReduce::Logger::info("load"); }
+  void save() { Logger::info("save"); }
+  void load() { Logger::info("load"); }
 };
 
 class IntermediateStore {
 public:
-  void save() { MapReduce::Logger::info("save"); }
-  void load() { MapReduce::Logger::info("load"); }
+  void save() { Logger::info("save"); }
+  void load() { Logger::info("load"); }
 };
 
 class Outputstore {
 public:
-  void save() { MapReduce::Logger::info("save"); }
-  void load() { MapReduce::Logger::info("load"); }
+  void save() { Logger::info("save"); }
+  void load() { Logger::info("load"); }
 };
 
-class Map : public MapReduce::IMap<Datastore, IntermediateStore> {
+class Map : public IMap {
+  Datastore m_data_store;
+  IntermediateStore m_intermediate_store;
+
 public:
-  void run() override { MapReduce::Logger::info("Running map function"); }
+  Map(Datastore &ds, IntermediateStore &is)
+      : m_data_store(ds), m_intermediate_store(is){};
+
+  void run() override { Logger::info("Running map function"); }
 };
 
-class Reduce : public MapReduce::IReduce<Datastore, IntermediateStore> {
+class Reduce : public IReduce {
+  Outputstore m_output_store;
+  IntermediateStore m_intermediate_store;
+
 public:
-  void run() override { MapReduce::Logger::info("Running map function"); }
+  Reduce(IntermediateStore &is, Outputstore &os)
+      : m_output_store(os), m_intermediate_store(is){};
+
+  void run() override { Logger::info("Running map function"); }
 };
 
-class WordCount : public MapReduce::Job<Datastore, Map, IntermediateStore,
-                                        Reduce, Outputstore> {
-
+class WordCount {
 public:
   WordCount();
-  void count();
   ~WordCount() = default;
+
+  void count();
+
+private:
+  MapReduce::Job<Datastore, Map, IntermediateStore, Reduce, Outputstore> m_job;
 };
 } // namespace Examples

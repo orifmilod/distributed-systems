@@ -1,10 +1,7 @@
 #include "wc.h"
 
-using namespace Examples;
-
 int main() {
-
-  WordCount wc;
+  Examples::WordCount wc;
   wc.count();
 
   return 0;

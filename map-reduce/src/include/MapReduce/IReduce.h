@@ -2,7 +2,6 @@
 
 namespace MapReduce {
 
-template <typename IntermediateStore, typename OutputStore> //
 class IReduce {
 public:
   IReduce() {}
