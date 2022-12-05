@@ -1,5 +1,4 @@
-#include <memory>
-
+#include "Logger.h"
 #include "wc.h"
 
 namespace Examples {
