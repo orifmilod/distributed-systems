@@ -13,7 +13,7 @@ List of projects to be implemented
 Ref: [Original paper](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
 
 Our implementation: 
-- is Header only library
+- is header only library & template based.
 - implements Load Balancing.
 - is Fault-tolerent and support automatic recovery.
 - has `WordCount`, `grepper` and `InvertedIndex` as examples.
