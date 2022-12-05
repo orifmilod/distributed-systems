@@ -1,8 +1,12 @@
 #pragma once
 
-#include <MapReduce/IMap.h>
-#include <MapReduce/IReduce.h>
 #include <MapReduce/Job.h>
+#include <MapReduce/Map.h>
+#include <MapReduce/Reduce.h>
+
+#include <filesystem>
+#include <string>
+#include <vector>
 
 namespace Examples {
 using namespace MapReduce;
@@ -25,26 +29,32 @@ public:
   void load() { Logger::info("load"); }
 };
 
-class Map : public IMap {
+class MyMap : public Map<std::filesystem::path, std::string> {
   Datastore m_data_store;
   IntermediateStore m_intermediate_store;
 
 public:
-  Map(Datastore &ds, IntermediateStore &is)
+  MyMap(Datastore &ds, IntermediateStore &is)
       : m_data_store(ds), m_intermediate_store(is){};
 
-  void run() override { Logger::info("Running map function"); }
+  void map(std::filesystem::path filepath /*, std::string value?? */) {
+    Logger::info("Running map function on file:", filepath.string());
+  }
 };
 
-class Reduce : public IReduce {
+class MyReduce : public Reduce<std::string, int> {
   Outputstore m_output_store;
   IntermediateStore m_intermediate_store;
 
 public:
-  Reduce(IntermediateStore &is, Outputstore &os)
+  MyReduce(IntermediateStore &is, Outputstore &os)
       : m_output_store(os), m_intermediate_store(is){};
 
-  void run() override { Logger::info("Running map function"); }
+  // For places where file is bigger that what can fit in the memory then we
+  // can use iterator instead of vector
+  void reduce(std::string key, std::vector<int> occurence_count) {
+    Logger::info("Running reduce function");
+  }
 };
 
 class WordCount {
@@ -55,6 +65,13 @@ public:
   void count();
 
 private:
-  MapReduce::Job<Datastore, Map, IntermediateStore, Reduce, Outputstore> m_job;
+  Datastore m_data_store;
+  Outputstore m_output_store;
+  IntermediateStore m_intermediate_store;
+  MyMap m_map;
+  MyReduce m_reduce;
+
+  MapReduce::Job<Datastore, MyMap, IntermediateStore, MyReduce, Outputstore>
+      m_job;
 };
 } // namespace Examples

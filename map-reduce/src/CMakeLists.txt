@@ -1,8 +1,8 @@
 project("MapReduce")
 
 add_library(${PROJECT_NAME} INTERFACE
-    ./include/MapReduce/IMap.h
-    ./include/MapReduce/IReduce.h
+    ./include/MapReduce/Map.h
+    ./include/MapReduce/Reduce.h
     ./include/MapReduce/Logger.h
     ./include/MapReduce/Job.h
 )
