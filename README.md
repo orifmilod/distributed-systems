@@ -4,7 +4,8 @@ The original [course](https://pdos.csail.mit.edu/6.824/index.html) is written in
 
 List of projects to be implemented
 - [X] MapReduce
-- [ ] Raft: Fault-tolerant Key/Value service 
+- [ ] Raft 
+- [ ] Fault-tolerant Key/Value service 
 - [ ] Sharded Key/Value service
 - [ ] Maybe something else?
 
