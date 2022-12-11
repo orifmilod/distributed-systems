@@ -1,5 +1,4 @@
 #include "Datastore.h"
-#include "Logger.h"
 #include <filesystem>
 
 namespace Examples {

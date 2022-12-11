@@ -26,8 +26,6 @@ PRIVATE
 )
 
 target_include_directories(${PROJECT_NAME}
-PUBLIC
-    ${CMAKE_SOURCE_DIR}/src/include
 PRIVATE
     ${Boost_INCLUDE_DIRS} 
     ${MPI_INCLUDE_PATH}
@@ -45,18 +43,6 @@ target_link_libraries(${DATASTORE}
 PRIVATE
     MapReduce
 )
-
-target_include_directories(${DATASTORE}
-PRIVATE
-    ${CMAKE_SOURCE_DIR}/src/include
-)
-
-
-# set(CMAKE_INSTALL_BINDIR bin)
-# message("ORIF ${CMAKE_INSTALL_BINDIR}")
-
-
-message(${CMAKE_CURRENT_BINARY_DIR})
 
 install(TARGETS ${PROJECT_NAME} ${DATASTORE} RUNTIME DESTINATION bin)
 file(COPY ../data/ DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/data")
