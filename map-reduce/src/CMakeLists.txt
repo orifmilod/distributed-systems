@@ -1,4 +1,4 @@
-project("MapReduce")
+project(MapReduce)
 
 add_library(${PROJECT_NAME} INTERFACE
     ./include/MapReduce/Map.h
