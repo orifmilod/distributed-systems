@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package wordcount;
+
+// The Datastore service definition.
+service Datastore {
+  rpc getFile (Request) returns (Response) {}
+}
+
+message Request {
+
+}
+
+// The response message containing the filepath
+message Response {
+  enum Status {
+    SUCCESS = 0;
+    FAIELD = 1;
+  }
+
+  string filepath = 1;
+  Status status = 2;
+}

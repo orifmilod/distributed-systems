@@ -1,5 +1,4 @@
 project(WordCount)
-set(DATASTORE Datastore)
 
 add_executable(${PROJECT_NAME}
     main.cpp
@@ -11,7 +10,8 @@ add_executable(${PROJECT_NAME}
 find_package(Boost COMPONENTS program_options mpi serialization log REQUIRED)
 find_package(MPI REQUIRED)
 
-find_package(MapReduce)
+find_package(MapReduce REQUIRED)
+# add_subdirectory(datastore)
 
 if(NOT Boost_FOUND)
     message (SEND_ERROR "Boost libraries are required to build this example.")
@@ -30,18 +30,6 @@ PRIVATE
     ${Boost_INCLUDE_DIRS} 
     ${MPI_INCLUDE_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-
-# Datastore
-add_executable(${DATASTORE}
-    ./Datastore.h
-    ./Datastore.cpp
-)
-
-target_link_libraries(${DATASTORE}
-PRIVATE
-    MapReduce
 )
 
 install(TARGETS ${PROJECT_NAME} ${DATASTORE} RUNTIME DESTINATION bin)
