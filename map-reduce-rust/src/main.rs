@@ -1,5 +1,5 @@
 mod Datastore;
-use std::path::{Path, PathBuf};
+use std::path::{Path};
 
 fn main() {
     let search_dir = Path::new("../../map-reduce/examples/data/");

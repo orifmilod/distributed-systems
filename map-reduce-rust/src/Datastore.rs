@@ -20,8 +20,11 @@ pub struct Datastore {
 
 impl Datastore {
   pub fn new(directory_path: &Path, extension: &str) -> Self {
+    let mut queue = VecDeque::new();
     for file in fs::read_dir(directory_path).unwrap() {
-        println!("{}", file.unwrap().path().display());
+      if file.unwrap().path().extension().unwrap().to_str().unwrap() == extension {
+        queue.push_back(file.unwrap().path());
+      }
     }
 
     return Datastore {
