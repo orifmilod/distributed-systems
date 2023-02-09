@@ -1,3 +1,4 @@
+use std::ascii::AsciiExt;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::collections::VecDeque;
@@ -21,10 +22,13 @@ pub struct Datastore {
 impl Datastore {
   pub fn new(directory_path: &Path, extension: &str) -> Self {
     let mut queue = VecDeque::new();
-    for file in fs::read_dir(directory_path).unwrap() {
-      if file.unwrap().path().extension().unwrap().to_str().unwrap() == extension {
+    let files = fs::read_dir(directory_path).unwrap();
+
+    for file in files {
+      if file.as_ref().unwrap().path().extension().unwrap().to_str().unwrap() == extension {
+        println!("Found file: {}", file.as_ref().unwrap().path().to_str().unwrap());
         queue.push_back(file.unwrap().path());
-      }
+      } 
     }
 
     return Datastore {
