@@ -11,8 +11,8 @@ pub enum Status {
 }
 
 pub struct Response {
-  m_file_path: Option<PathBuf>,
-  m_status: Status,
+  pub m_file_path: Option<PathBuf>,
+  pub m_status: Status,
 }
 
 pub struct Datastore {
@@ -26,7 +26,7 @@ impl Datastore {
 
     for file in files {
       if file.as_ref().unwrap().path().extension().unwrap().to_str().unwrap() == extension {
-        println!("Found file: {}", file.as_ref().unwrap().path().to_str().unwrap());
+        println!("Pushing file: {}", file.as_ref().unwrap().path().to_str().unwrap());
         queue.push_back(file.unwrap().path());
       } 
     }
@@ -39,12 +39,16 @@ impl Datastore {
   /*
    * Returns a file path of an unretreived data file
    */
-  fn get_file(&mut self) -> Response {
+  pub fn get_file(&mut self) -> Response {
     if self.m_file_paths.capacity() == 0 {
       return Response { m_file_path: Option::None, m_status: Status::OutOfFile }
     }
 
+    println!("{}", self.m_file_paths.capacity());
+
     let file_path = self.m_file_paths.pop_front();
+    println!("{}", file_path.as_ref().unwrap().to_str().unwrap());
+
     return Response { m_file_path: Option::Some(file_path.unwrap()), m_status: Status::Success }
   }
 }
